@@ -9,5 +9,5 @@ const toastTransition = cssTransition({
 });
 
 export function ToastRegion() {
-  return <ToastContainer position="top-right" autoClose={4000} newestOnTop closeOnClick pauseOnHover theme="light" transition={toastTransition} />;
+  return <ToastContainer position="top-right" autoClose={4000} newestOnTop closeOnClick pauseOnHover theme="light" transition={toastTransition} hideProgressBar={false} progressClassName="toast-progress" />;
 }

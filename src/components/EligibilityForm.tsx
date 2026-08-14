@@ -24,7 +24,7 @@ export function EligibilityForm({ onToast, onReserve }: EligibilityFormProps) {
     <div className="eligibility-layout">
       <form className="eligibility-form" onSubmit={submit}>
         <div className="form-step"><span className="form-label">1. Vous êtes :</span><div className="choice-grid">
-          {['male', 'female'].map((value) => <label className={`choice ${gender === value ? 'is-selected' : ''}`} key={value}><input type="radio" name="gender" value={value} checked={gender === value} onChange={(event) => setGender(event.target.value)} /><Icon name="user" size={22} /><span>{value === 'male' ? 'Homme' : 'Femme'}</span></label>)}
+          {['male', 'female'].map((value) => <label className={`choice ${gender === value ? 'is-selected' : ''}`} key={value}><input type="radio" name="gender" value={value} checked={gender === value} onChange={(event) => setGender(event.target.value)} /><Icon name={value === 'female' ? 'woman' : 'user'} size={22} /><span>{value === 'male' ? 'Homme' : 'Femme'}</span></label>)}
         </div></div>
         <div className="form-grid"><label>Votre âge <span>(18–65 ans)</span><input type="number" min="1" max="65" value={age} onChange={(event) => setAge(event.target.value)} placeholder="Ex : 25" required /></label><label>Votre poids <span>(minimum 50 kg)</span><input type="number" min="50" value={weight} onChange={(event) => setWeight(event.target.value)} placeholder="Ex : 65" required /></label></div>
         <button className="button button--full" type="submit">Vérifier mon éligibilité <Icon name="arrow-right" size={19} /></button>

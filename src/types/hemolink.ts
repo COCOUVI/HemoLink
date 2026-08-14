@@ -20,6 +20,7 @@ export type IconName =
   | 'user'
   | 'users'
   | 'weight'
+  | 'woman'
   | 'x'
   | 'zap';
 
@@ -35,6 +36,9 @@ export interface Center {
   phone: string;
   hours: string;
   access: string;
+  city?: string;
+  donationType?: string;
+  availability?: string;
 }
 
 export interface BloodReserve {
