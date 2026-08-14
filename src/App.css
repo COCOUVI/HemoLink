@@ -75,6 +75,7 @@ h1 em { color: var(--red); font-style: normal; }
 .form-grid label span { color: #9b928c; font-weight: 400; }
 .form-grid input { width: 100%; margin-top: 10px; padding: 15px 16px; border: 1px solid var(--line); border-radius: 14px; outline: none; background: #fff; color: var(--ink); }
 .form-grid input:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(168,76,61,.12); }
+.field-disabled { opacity: .6; }.first-donation { display: flex !important; align-items: center; gap: 7px; margin-top: 14px; color: var(--muted) !important; cursor: pointer; font-size: 12px !important; font-weight: 500 !important; }.first-donation input { width: 16px; height: 16px; accent-color: var(--red); }
 .form-note { justify-content: center; margin: 18px 0 0; color: #9b928c; font-size: 12px; }
 .eligibility-result { display: flex; min-height: 320px; flex-direction: column; align-items: flex-start; justify-content: center; padding: 42px; background: #f6ece9; }
 .eligibility-result > .eyebrow { margin: 19px 0 8px; }

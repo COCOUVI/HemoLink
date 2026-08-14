@@ -18,7 +18,7 @@ export function SiteNav() {
         <BrandLogo href={isCentersPage ? '/' : '#hero'} />
         <nav className={`site-nav__links ${open ? 'is-open' : ''}`} aria-label="Navigation principale">
           {isCentersPage ? <a href="/" onClick={() => setOpen(false)}>Retour à l'accueil</a> : links.map(([label, href]) => <a href={href} key={href} onClick={() => setOpen(false)}>{label}</a>)}
-          <a className="button button--small" href={isCentersPage ? '#all-centres' : '/centres'} onClick={() => setOpen(false)}>{isCentersPage ? 'Tous les centres' : 'Trouver un centre'}</a>
+          <a className="button button--small" href={isCentersPage ? '#all-centres' : '/centres'} onClick={() => setOpen(false)}><Icon name="hospital" size={16} /> {isCentersPage ? 'Tous les centres' : 'Trouver un centre'}</a>
         </nav>
         <button className="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded={open} onClick={() => setOpen((value) => !value)}>
           <Icon name={open ? 'x' : 'users'} size={22} />
