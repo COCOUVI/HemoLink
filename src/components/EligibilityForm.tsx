@@ -8,7 +8,7 @@ export function EligibilityForm({ onToast, onReserve }: EligibilityFormProps) {
   const [gender, setGender] = useState('male');
   const [age, setAge] = useState('');
   const [weight, setWeight] = useState('');
-  const [monthsSinceDonation, setMonthsSinceDonation] = useState('');
+  const [lastDonationDate, setLastDonationDate] = useState('');
   const [firstDonation, setFirstDonation] = useState(false);
   const [result, setResult] = useState<'eligible' | 'ineligible' | null>(null);
   const [reason, setReason] = useState('');
@@ -20,8 +20,15 @@ export function EligibilityForm({ onToast, onReserve }: EligibilityFormProps) {
     if (!age || ageValue < 18 || ageValue > 65) { setResult('ineligible'); setReason("L'âge doit être compris entre 18 et 65 ans."); onToast("Vérifiez votre âge : il doit être compris entre 18 et 65 ans.", 'error'); return; }
     if (!weight || weightValue < 50) { setResult('ineligible'); setReason('Le poids minimum requis est de 50 kg.'); onToast('Le poids minimum requis pour donner est de 50 kg.', 'error'); return; }
     const minimumDelay = gender === 'female' ? 4 : 3;
-    const monthsValue = Number(monthsSinceDonation);
-    if (!firstDonation && (!monthsSinceDonation || monthsValue < minimumDelay)) { setResult('ineligible'); setReason(`Après un don, le délai minimum est de ${minimumDelay} mois pour une ${gender === 'female' ? 'femme' : 'homme'}.`); onToast(`Vous devez attendre au moins ${minimumDelay} mois après votre dernier don.`, 'error'); return; }
+    if (!firstDonation) {
+      const lastDonation = new Date(`${lastDonationDate}T00:00:00`);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const possibleDate = new Date(lastDonation);
+      possibleDate.setMonth(possibleDate.getMonth() + minimumDelay);
+      if (!lastDonationDate || Number.isNaN(lastDonation.getTime()) || lastDonation > today) { setResult('ineligible'); setReason('Veuillez renseigner une date de dernier don valide.'); onToast('La date du dernier don doit être valide et ne peut pas être dans le futur.', 'error'); return; }
+      if (today < possibleDate) { const formattedDate = possibleDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }); setResult('ineligible'); setReason(`Le délai minimum est de ${minimumDelay} mois. Vous pourrez donner à partir du ${formattedDate}.`); onToast(`Votre prochain don sera possible à partir du ${formattedDate}.`, 'error'); return; }
+    }
     setResult('eligible'); setReason('Vous semblez remplir les critères de base pour donner votre sang.'); onToast('Votre test est positif. Prenez rendez-vous dans un centre.', 'success');
   };
 
@@ -31,7 +38,7 @@ export function EligibilityForm({ onToast, onReserve }: EligibilityFormProps) {
         <div className="form-step"><span className="form-label">Vous êtes :</span><div className="choice-grid">
           {['male', 'female'].map((value) => <label className={`choice ${gender === value ? 'is-selected' : ''}`} key={value}><input type="radio" name="gender" value={value} checked={gender === value} onChange={(event) => setGender(event.target.value)} /><Icon name={value === 'female' ? 'woman' : 'user'} size={22} /><span>{value === 'male' ? 'Homme' : 'Femme'}</span></label>)}
         </div></div>
-        <div className="form-grid"><label>Votre âge <span>(18–65 ans)</span><input type="number" min="1" max="65" value={age} onChange={(event) => setAge(event.target.value)} placeholder="Ex : 25" required /></label><label>Votre poids <span>(minimum 50 kg)</span><input type="number" min="50" value={weight} onChange={(event) => setWeight(event.target.value)} placeholder="Ex : 65" required /></label><label className={firstDonation ? 'field-disabled' : ''}>Il y a combien de mois avez-vous donné votre sang ? <input type="number" min="1" value={monthsSinceDonation} onChange={(event) => setMonthsSinceDonation(event.target.value)} placeholder={firstDonation ? 'Premier don' : 'Ex : 4'} disabled={firstDonation} required={!firstDonation} /></label></div>
+        <div className="form-grid"><label>Votre âge <span>(18–65 ans)</span><input type="number" min="1" max="65" value={age} onChange={(event) => setAge(event.target.value)} placeholder="Ex : 25" required /></label><label>Votre poids <span>(minimum 50 kg)</span><input type="number" min="50" value={weight} onChange={(event) => setWeight(event.target.value)} placeholder="Ex : 65" required /></label><label className={firstDonation ? 'field-disabled' : ''}>Date du dernier don <span>(si vous avez déjà donné)</span><input type="date" max={new Date().toISOString().split('T')[0]} value={lastDonationDate} onChange={(event) => setLastDonationDate(event.target.value)} disabled={firstDonation} required={!firstDonation} /></label></div>
         <label className="first-donation"><input type="checkbox" checked={firstDonation} onChange={(event) => setFirstDonation(event.target.checked)} /> <span>C'est mon premier don</span></label>
         <button className="button button--full" type="submit">Vérifier mon éligibilité <Icon name="arrow-right" size={19} /></button>
         <p className="form-note"><Icon name="lock" size={15} /> Vos réponses restent confidentielles et ne sont pas conservées.</p>
