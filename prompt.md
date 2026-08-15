@@ -26,7 +26,6 @@
 - Modification du min du input a 1 pour l'age et pour le poids pour eviter que l'utilisateur  rentre des valeurs negatif ou nulle
 
 ## Limites rencontrées avec l'outil
-
 - L'outil ne comprend pas toujours correctement les instructions, même lorsque la demande est formulée de manière précise.
 - Il est parfois nécessaire de lui fournir une capture d'écran ou une image pour lui montrer visuellement le résultat attendu.
 - Après avoir fourni une référence visuelle, l'outil comprend généralement mieux la demande et produit un résultat plus conforme aux attentes.
