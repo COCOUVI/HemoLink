@@ -158,12 +158,6 @@ Les images devront rester sobres, professionnelles et suffisamment contrastées 
 
 > **Résultat final du hero / carrousel**
 
-## Limites et évolutions possibles
-
-- Les centres et les réserves sanguines sont actuellement des données de démonstration statiques.
-- Le test d’éligibilité ne remplace pas un entretien médical.
-- La réservation, l’authentification et la synchronisation avec un système de santé restent à connecter à une API.
-- Les images réelles du carrousel devront être sélectionnées avec attention pour respecter le consentement, la confidentialité et la dignité des personnes photographiées.
 
 ## Validation
 
