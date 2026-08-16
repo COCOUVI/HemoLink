@@ -39,6 +39,9 @@ export interface Center {
   city?: string;
   donationType?: string;
   availability?: string;
+  email?: string;
+  donationTypes?: string;
+  status?: string;
 }
 
 export interface BloodReserve {
